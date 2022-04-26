@@ -1,0 +1,90 @@
+{% extends 'Base.html' %}
+{% load static %}
+{% block content %}
+
+
+        <!-- start section content -->
+        <div class="content-body">
+            <div class="warper container-fluid">
+                <div class="row page-titles mx-0">
+                    <div class="col-lg-12 p-md-0">
+                        {% if request.user.is_authenticated%}
+                        <h4 class="text-primary">Welcome!! <span class="names">{{request.user.first_name}}</span></h4>
+                        {% endif %}
+                        {% if messages %} {% for message in messages%}
+              <div
+                class="mt-3 alert alert-{{ message.tags }} alert-dismissible fade show"
+                role="alert"
+              >
+                <strong></strong> {{message}}
+              </div>
+              {% endfor %} {% endif %}
+                        <p class="mb-0"></p>
+                    </div>
+                </div>
+                <div class="new-patients main_container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card shadow">
+                                <div class="card-header">
+                                    <h4 class="card-title">Doctors List</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table id="example1" class="display nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th>S.N</th>
+                                                    <th> Name</th>
+                                                    <th>Address</th>
+                                                    <th>Phone</th>
+                                                    <th>Specialist</th>
+                                                    <th>Availablitiy</th>
+                                                    <th>Appointment</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for li in doctors %}
+                                               
+                                                <tr>
+                                                    <td> {{forloop.counter}} </td>
+                                                    <td> {{li.first_name}} {{li.last_name}} </td>
+                                                    <td>{{li.address}}</td>
+                                                    <td> {{li.mobile}} </td>
+                                                    <td> {{li.specialist}} </td>
+                                                    <td>{% if li.availability %}
+                                                        On {% else %}Off
+                                                        {% endif %}</td>
+                                                    <td class="text-start">
+                                                        {% if li.availability %}
+                                                        <a href="{% url 'Management_system:appointment-form' li.id %}"><span class="badge badge-primary"> 
+                                                            <i class="fa fa-calendar-check text-white mx-1"></i> 
+                                                            Book appt</span></a>
+                                                            {% else %}
+                                                            <badge class="badge badge-danger">Not Available</badge>
+                                                        {% endif %}
+                                                       
+                                                    </td>
+                                                    <td>
+                                                        <a class='mr-4 vue'>
+                                                            <a href="{% url 'Management_system:doctor-profile' li.id %}"><span class='fa fa-eye' aria-hidden='true'></span></a>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                           
+                                              
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End section content -->
+
+{% endblock %}

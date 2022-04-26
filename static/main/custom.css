@@ -1,0 +1,7 @@
+#licence-div {
+    display: none;
+}
+
+#licence-div.show {
+    display: block;
+}

@@ -1,0 +1,114 @@
+{% extends 'Base.html' %}
+{% load static %}
+{% block content %}
+        <div class="content-body">
+            <div class="warper container-fluid">
+                <div class="all-patients main_container">
+                    <div class="row page-titles mx-0">
+                        <div class="col-sm-6 p-md-0">
+                            <div class="welcome-text">
+                                <h4 class="text-primary">Doctors List</h4>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="widget-media list-doctors best-doctor">
+                                <div class="timeline row">
+                                    {% for doc in doctor%}
+                                    <div class="col-sm-6 col-lg-4">
+                                        <div class="timeline-panel card p-4 mb-4">
+                                            <div class="media">
+                                                <img src="{% if doc.profile_pic %}{{ doc.profile_pic.url }}{% else %}{% static 'images/no_image.png' %}{% endif %}">
+                                            </div>
+                                            <div class="media-body">
+                                                <a href="#">
+                                                    <h4 class="mb-2">{{doc}}</h4>
+                                                </a>
+                                                <p class="mb-2">{{doc.specialist|default_if_none:""}}</p>
+                                                {% if doc.get_ratings == 0 %}
+                                                <div class="star-review">
+                                                    <i onclick="rate_doctor(1)" class="fa fa-star text-gray"></i>
+                                                    <i onclick="rate_doctor(2)"  class="fa fa-star text-gray"></i>
+                                                    <i onclick="rate_doctor(3)" class="fa fa-star text-gray"></i>
+                                                    <i onclick="rate_doctor(4)" class="fa fa-star text-gray"></i>
+                                                    <i onclick="rate_doctor(5)" class="fa fa-star text-gray"></i>
+                                                </div>
+                                                {% elif doc.get_ratings == 1 or doc.get_ratings < 1 %}
+                                                <div class="star-review">
+                                                    <i onclick="rate_doctor(1)" class="fa fa-star text-orange"></i>
+                                                    <i onclick="rate_doctor(2)"  class="fa fa-star text-gray"></i>
+                                                    <i onclick="rate_doctor(3)" class="fa fa-star text-gray"></i>
+                                                    <i onclick="rate_doctor(4)" class="fa fa-star text-gray"></i>
+                                                    <i onclick="rate_doctor(5)" class="fa fa-star text-gray"></i>
+                                                </div>
+                                                {% elif doc.get_ratings == 2 or doc.get_ratings > 1 and doc.get_ratings < 2 %}
+                                                <div class="star-review">
+                                                    <i onclick="rate_doctor(1)" class="fa fa-star text-orange"></i>
+                                                    <i onclick="rate_doctor(2)"  class="fa fa-star text-orange"></i>
+                                                    <i onclick="rate_doctor(3)" class="fa fa-star text-gray"></i>
+                                                    <i onclick="rate_doctor(4)" class="fa fa-star text-gray"></i>
+                                                    <i onclick="rate_doctor(5)" class="fa fa-star text-gray"></i>
+                                                </div>
+                                                {% elif doc.get_ratings == 3  or doc.get_ratings > 2 and doc.get_ratings < 4 %}
+                                                <div class="star-review">
+                                                    <i onclick="rate_doctor(1)" class="fa fa-star text-orange"></i>
+                                                    <i onclick="rate_doctor(2)"  class="fa fa-star text-orange"></i>
+                                                    <i onclick="rate_doctor(3)" class="fa fa-star text-orange"></i>
+                                                    <i onclick="rate_doctor(4)" class="fa fa-star text-gray"></i>
+                                                    <i onclick="rate_doctor(5)" class="fa fa-star text-gray"></i>
+                                                </div>
+                                                {% elif doc.get_ratings == 4 or doc.get_ratings > 3 and doc.get_ratings < 4 %}
+                                                <div class="star-review">
+                                                    <i onclick="rate_doctor(1)" class="fa fa-star text-orange"></i>
+                                                    <i onclick="rate_doctor(2)"  class="fa fa-star text-orange"></i>
+                                                    <i onclick="rate_doctor(3)" class="fa fa-star text-orange"></i>
+                                                    <i onclick="rate_doctor(4)" class="fa fa-star text-orange"></i>
+                                                    <i onclick="rate_doctor(5)" class="fa fa-star text-gray"></i>
+                                                </div>
+                                                
+                                                {% else %}
+                                                
+                                                <div class="star-review">
+                                                    <i onclick="rate_doctor(1)" class="fa fa-star text-orange"></i>
+                                                    <i onclick="rate_doctor(2)"  class="fa fa-star text-orange"></i>
+                                                    <i onclick="rate_doctor(3)" class="fa fa-star text-orange"></i>
+                                                    <i onclick="rate_doctor(4)" class="fa fa-star text-orange"></i>
+                                                    <i onclick="rate_doctor(5)" class="fa fa-star text-orange"></i>
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="btn-group-style-1">
+                                                <div class="btn-content">
+                                                    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fas fa-ellipsis-v"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <div class="form-content">
+                                                            <a href="{% url 'Management_system:doctor-profile' doc.id %}">
+                                                                <span class="ml-2">View Profile</span>
+                                                            </a>
+                                                            <a href="{% url 'Management_system:appointment-form' doc.id %}">
+                                                                <span class="ml-2">Book Appointment</span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>   
+{% endblock %}

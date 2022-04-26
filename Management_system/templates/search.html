@@ -1,0 +1,186 @@
+{% extends 'Base.html' %}
+{% load static %}
+{% block content %}
+        <div class="content-body">
+            <div class="warper container-fluid">
+                <div class="main_container">
+                    <div class="row page-titles mx-0">
+                        <div class="col-sm-6 p-md-0">
+                            <div class="welcome-text">
+                                <h4 class="text-primary">Doctor Profile</h4>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{% url 'Management_system:patientdashboard' %}">Home</a></li>
+                                
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+
+                 
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between doctor-info-details">
+                                        {% if query %}
+                                        {% for doctor in results %}
+                                        <div class="d-flex left-content">
+                                            <div class="media align-self-start">
+                                                <img alt="image" class="rounded-circle shadow" width="90" src="{% if doctor.profile_pic %}{{ doctor.profile_pic.url }}{% else %}{% static 'images/no_image.png' %}{% endif %}">
+                                               
+                                            </div>
+                                            <div id="info-media" data-id="{{doctor.id}}" data-url="{% url 'Management_system:create_rate' %}" class="media-body">
+                                                <h2 class="mb-2">{{doctor.first_name}}</h2>
+                                                <p class="mb-md-2 mb-sm-4 mb-2">{{doctor.specialist|default_if_none:""}}</p>
+                                                <p class="mb-md-2 mb-sm-4 mb-2">
+                                                    Availablitiy:{% if doctor.availability %}
+                                                    <div class="badge badge-success">On</div> 
+                                                    {% else %}
+                                                    <div class="badge badge-danger">Off</div>
+                                                    {% endif %}
+                                                </p>
+                                            
+                                                <div id="ratings">
+                                                    {% if has_rating ==  "True" %}
+                                                        {% if myrate %}
+                                                            {% include 'rating.html' %}
+                                                        {% else %}
+                                                            {% include 'total_rating.html' %}
+                                                        {% endif %}
+                                               
+                                                    
+                                                {% else %}
+                                                <div class="star-review">
+                                                    <i onclick="rate_doctor(1)" class="fa fa-star text-gray"></i>
+                                                    <i onclick="rate_doctor(2)"  class="fa fa-star text-gray"></i>
+                                                    <i onclick="rate_doctor(3)" class="fa fa-star text-gray"></i>
+                                                    <i onclick="rate_doctor(4)" class="fa fa-star text-gray"></i>
+                                                    <i onclick="rate_doctor(5)" class="fa fa-star text-gray"></i>
+                                                </div>
+
+                                                {% endif %}
+                                                
+                                               
+                                                
+                                                </div>
+
+                                                {% if has_rating == "True" %}
+                                                <p class="mt-2"> Total Rating : {{total_rating}}</p> 
+                                                {% if myrate %}
+                                                <p class="mt-2"> Your Rating : {{rate}}</p> <br>
+                                                {% endif %}
+                                                {% else %}
+                                                 <p class="mt-2">Be the first to rate this doctor</p>
+                                                 {% endif %}
+                                                 {% if doctor.availability %}
+                                                 <a class="btn btn-primary btn-small mt-3" href="{% url 'Management_system:appointment-form' doctor.id %}">
+                                                    <i class="fa fa-calendar-check text-white"></i> 
+                                                    Book Appointment</a>
+                                                    {% else %}
+                                                    <a class="btn btn-primary btn-small mt-3">
+                                                        <i class="fa fa-calendar-check text-white"></i> 
+                                                        Unavailable For Appointment</a>
+                                                    {% endif %}
+
+                                               
+                                            </div>
+                                        </div>
+                                        {% empty %}
+                                        <h2 style="width:50%;text-align:center;> No result found</h2>
+                                        {% endfor %}
+                                        
+                                        {% endif %}
+                                    </div>
+                            
+                                </div>
+                            </div>
+                       
+                    </div>  
+                </div>
+        </div>
+{% endblock %}
+
+{% block js %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script>
+        
+        function rate_doctor(rating){
+            if(rating==1){
+                $("#ratings").html(`
+                <div class="star-review">
+                    <i onclick="rate_doctor(1)" class="fa fa-star text-orange"></i>
+                    <i onclick="rate_doctor(2)"  class="fa fa-star text-gray"></i>
+                    <i onclick="rate_doctor(3)" class="fa fa-star text-gray"></i>
+                    <i onclick="rate_doctor(4)" class="fa fa-star text-gray"></i>
+                    <i onclick="rate_doctor(5)" class="fa fa-star text-gray"></i>
+                </div>
+                `)}
+             if(rating==2){
+                $("#ratings").html(`
+                <div class="star-review">
+                    <i onclick="rate_doctor(1)" class="fa fa-star text-orange"></i>
+                    <i onclick="rate_doctor(2)"  class="fa fa-star text-orange"></i>
+                    <i onclick="rate_doctor(3)" class="fa fa-star text-gray"></i>
+                    <i onclick="rate_doctor(4)" class="fa fa-star text-gray"></i>
+                    <i onclick="rate_doctor(5)" class="fa fa-star text-gray"></i>
+                </div>
+                `)
+            }
+             if(rating==3){
+                $("#ratings").html(`
+                <div class="star-review">
+                    <i onclick="rate_doctor(1)" class="fa fa-star text-orange"></i>
+                    <i onclick="rate_doctor(2)"  class="fa fa-star text-orange"></i>
+                    <i onclick="rate_doctor(3)" class="fa fa-star text-orange"></i>
+                    <i onclick="rate_doctor(4)" class="fa fa-star text-gray"></i>
+                    <i onclick="rate_doctor(5)" class="fa fa-star text-gray"></i>
+                </div>
+                `)
+            }
+             if(rating==4){
+                $("#ratings").html(`
+                <div class="star-review">
+                    <i onclick="rate_doctor(1)" class="fa fa-star text-orange"></i>
+                    <i onclick="rate_doctor(2)"  class="fa fa-star text-orange"></i>
+                    <i onclick="rate_doctor(3)" class="fa fa-star text-orange"></i>
+                    <i onclick="rate_doctor(4)" class="fa fa-star text-orange"></i>
+                    <i onclick="rate_doctor(5)" class="fa fa-star text-gray"></i>
+                </div>
+                `)
+            }
+            if(rating==5){
+                $("#ratings").html(`
+                <div class="star-review">
+                    <i onclick="rate_doctor(1)" class="fa fa-star text-orange"></i>
+                    <i onclick="rate_doctor(2)"  class="fa fa-star text-orange"></i>
+                    <i onclick="rate_doctor(3)" class="fa fa-star text-orange"></i>
+                    <i onclick="rate_doctor(4)" class="fa fa-star text-orange"></i>
+                    <i onclick="rate_doctor(5)" class="fa fa-star text-orange"></i>
+                </div>
+                `)
+                }
+
+            
+            
+            $.ajax({
+                type: "post",
+                url: $("#info-media").attr("data-url"),
+                data: {
+                    doc_id:$("#info-media").attr("data-id"),
+                    rate:rating,
+                    csrfmiddlewaretoken:'{{csrf_token}}'
+                },
+                success: function (res) {
+                    console.log(res)
+                      toastr.success('Added your rating');
+                  }
+              });
+        }
+    </script>
+{% endblock js %}

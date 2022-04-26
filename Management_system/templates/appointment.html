@@ -1,0 +1,65 @@
+{% extends 'Base.html' %}
+{% load static %}
+{% block content %}
+
+         <!-- start section content -->
+         <div class="content-body">
+            <div class="warper container-fluid">
+                <div class="row page-titles mx-0">
+                </div>
+                <div class="new-patients main_container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card shadow">
+                                <div class="card-header">
+                                    <h4 class="card-title">Your Appointment List</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table id="example1" class="display nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th>S.N</th> 
+                                                   
+                                                   
+                                                    <th>Doctor</th>
+                                                    <th>Appointment Date</th>
+                                                    <th>Appointment Start</th>
+                                                    <th>Appointment End</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for li in appointments %}
+                                                <tr>
+                                                    <td> {{forloop.counter}} </td>
+                                                   
+                                                    
+                                                    <td> {{li.doctor}} </td>
+                                                    <td> {{li.appointment_date}} </td>
+                                                    <td> {{li.appointment_time}} </td>
+                                                    <td> {{li.appointment_time_end}} </td>
+                                                
+                                                    <td>
+                                                        <a class='mr-4 vue'>
+                                                            <a href="{% url 'Management_system:appointment_detail' li.id %}"><span class='fa fa-eye' aria-hidden='true'></span></a>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                              
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End section content -->
+
+
+{% endblock %}       

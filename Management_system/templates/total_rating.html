@@ -1,0 +1,44 @@
+{% load static %}
+{% if total_rating == 1 or total_rating < 1 %}
+<div class="star-review">
+    <i onclick="rate_doctor(1)" class="fa fa-star text-orange"></i>
+    <i onclick="rate_doctor(2)"  class="fa fa-star text-gray"></i>
+    <i onclick="rate_doctor(3)" class="fa fa-star text-gray"></i>
+    <i onclick="rate_doctor(4)" class="fa fa-star text-gray"></i>
+    <i onclick="rate_doctor(5)" class="fa fa-star text-gray"></i>
+</div>
+{% elif total_rating == 2 or total_rating > 1 and total_rating < 2 %}
+<div class="star-review">
+    <i onclick="rate_doctor(1)" class="fa fa-star text-orange"></i>
+    <i onclick="rate_doctor(2)"  class="fa fa-star text-orange"></i>
+    <i onclick="rate_doctor(3)" class="fa fa-star text-gray"></i>
+    <i onclick="rate_doctor(4)" class="fa fa-star text-gray"></i>
+    <i onclick="rate_doctor(5)" class="fa fa-star text-gray"></i>
+</div>
+{% elif total_rating == 3  or total_rating > 2 and total_rating < 4 %}
+<div class="star-review">
+    <i onclick="rate_doctor(1)" class="fa fa-star text-orange"></i>
+    <i onclick="rate_doctor(2)"  class="fa fa-star text-orange"></i>
+    <i onclick="rate_doctor(3)" class="fa fa-star text-orange"></i>
+    <i onclick="rate_doctor(4)" class="fa fa-star text-gray"></i>
+    <i onclick="rate_doctor(5)" class="fa fa-star text-gray"></i>
+</div>
+{% elif total_rating == 4 or total_rating > 3 and total_rating < 4 %}
+<div class="star-review">
+    <i onclick="rate_doctor(1)" class="fa fa-star text-orange"></i>
+    <i onclick="rate_doctor(2)"  class="fa fa-star text-orange"></i>
+    <i onclick="rate_doctor(3)" class="fa fa-star text-orange"></i>
+    <i onclick="rate_doctor(4)" class="fa fa-star text-orange"></i>
+    <i onclick="rate_doctor(5)" class="fa fa-star text-gray"></i>
+</div>
+
+{% else %}
+
+<div class="star-review">
+    <i onclick="rate_doctor(1)" class="fa fa-star text-orange"></i>
+    <i onclick="rate_doctor(2)"  class="fa fa-star text-orange"></i>
+    <i onclick="rate_doctor(3)" class="fa fa-star text-orange"></i>
+    <i onclick="rate_doctor(4)" class="fa fa-star text-orange"></i>
+    <i onclick="rate_doctor(5)" class="fa fa-star text-orange"></i>
+</div>
+{% endif %}

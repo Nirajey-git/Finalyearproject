@@ -1,0 +1,44 @@
+{% load static %}
+{% if rate == 1 or rate < 1 %}
+<div class="star-review">
+    <i onclick="rate_doctor(1)" class="fa fa-star text-orange"></i>
+    <i onclick="rate_doctor(2)"  class="fa fa-star text-gray"></i>
+    <i onclick="rate_doctor(3)" class="fa fa-star text-gray"></i>
+    <i onclick="rate_doctor(4)" class="fa fa-star text-gray"></i>
+    <i onclick="rate_doctor(5)" class="fa fa-star text-gray"></i>
+</div>
+{% elif rate == 2 or rate > 1 and rate < 2 %}
+<div class="star-review">
+    <i onclick="rate_doctor(1)" class="fa fa-star text-orange"></i>
+    <i onclick="rate_doctor(2)"  class="fa fa-star text-orange"></i>
+    <i onclick="rate_doctor(3)" class="fa fa-star text-gray"></i>
+    <i onclick="rate_doctor(4)" class="fa fa-star text-gray"></i>
+    <i onclick="rate_doctor(5)" class="fa fa-star text-gray"></i>
+</div>
+{% elif rate == 3  or rate > 2 and rate < 4 %}
+<div class="star-review">
+    <i onclick="rate_doctor(1)" class="fa fa-star text-orange"></i>
+    <i onclick="rate_doctor(2)"  class="fa fa-star text-orange"></i>
+    <i onclick="rate_doctor(3)" class="fa fa-star text-orange"></i>
+    <i onclick="rate_doctor(4)" class="fa fa-star text-gray"></i>
+    <i onclick="rate_doctor(5)" class="fa fa-star text-gray"></i>
+</div>
+{% elif rate == 4 or rate > 3 and rate < 4 %}
+<div class="star-review">
+    <i onclick="rate_doctor(1)" class="fa fa-star text-orange"></i>
+    <i onclick="rate_doctor(2)"  class="fa fa-star text-orange"></i>
+    <i onclick="rate_doctor(3)" class="fa fa-star text-orange"></i>
+    <i onclick="rate_doctor(4)" class="fa fa-star text-orange"></i>
+    <i onclick="rate_doctor(5)" class="fa fa-star text-gray"></i>
+</div>
+
+{% else %}
+
+<div class="star-review">
+    <i onclick="rate_doctor(1)" class="fa fa-star text-orange"></i>
+    <i onclick="rate_doctor(2)"  class="fa fa-star text-orange"></i>
+    <i onclick="rate_doctor(3)" class="fa fa-star text-orange"></i>
+    <i onclick="rate_doctor(4)" class="fa fa-star text-orange"></i>
+    <i onclick="rate_doctor(5)" class="fa fa-star text-orange"></i>
+</div>
+{% endif %}
